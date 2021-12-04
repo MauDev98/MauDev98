@@ -2,7 +2,10 @@
 
 import random
 import os
-def clear(): os.system('cls')
+
+
+def clear():
+    os.system('cls')
 
 
 # GLOBAL VARIABLES
@@ -17,11 +20,20 @@ logo = """
       `------'                           |__/
 """
 
-
-clubArt = {"\u2663": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5), (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10), (' J', 10), (' Q', 10), (' K', 10)],
-           "\u2660": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5), (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10), (' J', 10), (' Q', 10), (' K', 10)],
-           "\u2665": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5), (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10), (' J', 10), (' Q', 10), (' K', 10)],
-           "\u2666": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5), (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10), (' J', 10), (' Q', 10), (' K', 10)]}
+clubArt = {
+    "\u2663": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5),
+               (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10),
+               (' J', 10), (' Q', 10), (' K', 10)],
+    "\u2660": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5),
+               (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10),
+               (' J', 10), (' Q', 10), (' K', 10)],
+    "\u2665": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5),
+               (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10),
+               (' J', 10), (' Q', 10), (' K', 10)],
+    "\u2666": [(' A', 11), (' 2', 2), (' 3', 3), (' 4', 4), (' 5', 5),
+               (' 6', 6), (' 7', 7), (' 8', 8), (' 9', 9), ('10', 10),
+               (' J', 10), (' Q', 10), (' K', 10)]
+}
 
 initialBank = [1000]
 
@@ -87,13 +99,13 @@ def displayOnGameTable(bank, bet):
         |       YOUR BET = $ {}             |
         |                                     |
         .─────────────────────────────────────.
-    """.format(formatBank(moneyDisplayed), formatBet(-1*bet))
+    """.format(formatBank(moneyDisplayed), formatBet(-1 * bet))
     print(onGameTable)
 
 
 def betResolution(initialBank, playerBet, WoL=True or False):
     if WoL == True:
-        initialBank.append(-1*playerBet)
+        initialBank.append(-1 * playerBet)
     elif WoL == False:
         initialBank.append(playerBet)
 
@@ -104,13 +116,15 @@ def makeABet(initialBank):
         allIn = actualizeMoney(initialBank)
         validBets = [allIn, "25", "50", "100", "250", "500"]
         playerBet = input(
-            "Please enter a valid amount to bet // -ALL IN- -25- -50- -100- -250- -500-\n").upper()
+            "Please enter a valid amount to bet // -ALL IN- -25- -50- -100- -250- -500-\n"
+        ).upper()
         if playerBet in validBets:
             playerBet = int(playerBet)
-            return (-1*playerBet)
+            return (-1 * playerBet)
         elif playerBet == "ALL IN":
             playerBet = allIn
-            return (-1*playerBet)
+            return (-1 * playerBet)
+
 
 # GAME LOGIC FUNCTIONS
 
@@ -123,7 +137,8 @@ def getScore(aListOfCards):
 def getACard(cardList, cardValueList):
     selectedLogo = random.choice(list(clubArt.keys()))
     selectedCard = random.choice(clubArt[selectedLogo])
-    logo, cardString, cardValue = selectedLogo, selectedCard[0], selectedCard[1]
+    logo, cardString, cardValue = selectedLogo, selectedCard[0], selectedCard[
+        1]
     cardTotal = (logo, cardString, cardValue)
     cardList.append(cardTotal)
     cardValue = cardTotal[2]
@@ -177,6 +192,7 @@ def compareScores(aScore, anotherScore):
     else:
         return "DRAW"
 
+
 # GAME VISUAL DISPLAY
 
 
@@ -206,7 +222,8 @@ def gameVisual(playerCards, playerScore, dealerCards, bank, bet):
     displayOnGameTable(bank, bet)
 
 
-def gameVisualFinal(playerCards, playerScore, dealerCards, dealerScore, bank, bet):
+def gameVisualFinal(playerCards, playerScore, dealerCards, dealerScore, bank,
+                    bet):
     clear()
     # PRINTS GAME LOGO
     print(logo)
@@ -259,8 +276,8 @@ while True:
             # PLAYER'S SCORE ACTUALIZED
             playerScore = getScore(playerCardsValues)
             # GAME VISUAL DISPLAY ACTUALIZED
-            gameVisual(playerCards, playerScore,
-                       dealerCards, initialBank, playerBet)
+            gameVisual(playerCards, playerScore, dealerCards, initialBank,
+                       playerBet)
             # CHECK IF BASH
             if checkIfBash(playerScore) == True:
                 # LAST CHANCE FOR THE DEALER TO PUSH
@@ -269,8 +286,8 @@ while True:
                 # DEALER'S SCORE ACTUALIZED'
                 dealerScore = getScore(dealerCardsValues)
                 # GAME VISUAL DISPLAY FINAL
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 if checkIfBash(dealerScore) == True:
                     print("The dealer and you got a BLACKJACK")
                     print("PUSH")
@@ -281,8 +298,8 @@ while True:
                     betResolution(initialBank, playerBet, True)
                     break
             elif checkIfBash(playerScore) == False:
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 print("BASH")
                 print("YOU LOSE")
                 betResolution(initialBank, playerBet, False)
@@ -293,8 +310,8 @@ while True:
             # PLAYER'S SCORE ACTUALIZED
             playerScore = getScore(playerCardsValues)
             # GAME VISUAL DISPLAY ACTUALIZED
-            gameVisual(playerCards, playerScore,
-                       dealerCards, initialBank, playerBet)
+            gameVisual(playerCards, playerScore, dealerCards, initialBank,
+                       playerBet)
             if checkIfBash(playerScore) == True:
                 # LAST CHANCE FOR THE DEALER TO PUSH
                 # DEALER RECIEVES CARDS
@@ -302,8 +319,8 @@ while True:
                 # DEALER'S SCORE ACTUALIZED'
                 dealerScore = getScore(dealerCardsValues)
                 # GAME VISUAL DISPLAY FINAL
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 if checkIfBash(dealerScore) == True:
                     print("Dealer and player got a BLACKJACK")
                     print("PUSH")
@@ -311,14 +328,14 @@ while True:
                 elif checkIfBash(dealerScore) == False:
                     print("BLACKJACK!")
                     print("YOU WIN")
-                    betResolution(initialBank, (playerBet*2), True)
+                    betResolution(initialBank, (playerBet * 2), True)
                     break
             elif checkIfBash(playerScore) == False:
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 print("BASH")
                 print("YOU LOSE")
-                betResolution(initialBank, (playerBet*2), False)
+                betResolution(initialBank, (playerBet * 2), False)
                 break
             # DEALER'S TURN
             dealersTurn(dealerCards, dealerCardsValues)
@@ -326,30 +343,30 @@ while True:
             dealerScore = getScore(dealerCardsValues)
             # CHECK IF THE DEALER GOT BASH
             if checkIfBash(dealerScore) == True:
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 print("DEALER GOT A BLACKJACK")
                 print("YOU LOSE")
-                betResolution(initialBank, (playerBet*2), False)
+                betResolution(initialBank, (playerBet * 2), False)
                 break
             elif checkIfBash(dealerScore) == False:
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 print("THE DEALER GOT BASH")
                 print("YOU WIN")
-                betResolution(initialBank, (playerBet*2), True)
+                betResolution(initialBank, (playerBet * 2), True)
                 break
             # SHOW THE CARDS ACTUALIZED
-            gameVisualFinal(playerCards, playerScore, dealerCards,
-                            dealerScore, initialBank, playerBet)
+            gameVisualFinal(playerCards, playerScore, dealerCards, dealerScore,
+                            initialBank, playerBet)
             # COMPARE SCORES
             if compareScores(playerScore, dealerScore) == True:
                 print("YOU WIN")
-                betResolution(initialBank, (playerBet*2), True)
+                betResolution(initialBank, (playerBet * 2), True)
                 break
             elif compareScores(playerScore, dealerScore) == False:
                 print("YOU LOSE")
-                betResolution(initialBank, (playerBet*2), False)
+                betResolution(initialBank, (playerBet * 2), False)
                 break
             elif compareScores(playerScore, dealerScore) == "DRAW":
                 print("PUSH")
@@ -361,22 +378,22 @@ while True:
             dealerScore = getScore(dealerCardsValues)
             # CHECK IF THE DEALER GOT BASH
             if checkIfBash(dealerScore) == True:
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 print("DEALER GOT A BLACKJACK")
                 print("YOU LOSE")
                 betResolution(initialBank, playerBet, False)
                 break
             elif checkIfBash(dealerScore) == False:
-                gameVisualFinal(playerCards, playerScore,
-                                dealerCards, dealerScore, initialBank, playerBet)
+                gameVisualFinal(playerCards, playerScore, dealerCards,
+                                dealerScore, initialBank, playerBet)
                 print("THE DEALER GOT BASH")
                 print("YOU WIN")
                 betResolution(initialBank, playerBet, True)
                 break
             # GAME VISUAL DISPLAY FINAL
-            gameVisualFinal(playerCards, playerScore, dealerCards,
-                            dealerScore, initialBank, playerBet)
+            gameVisualFinal(playerCards, playerScore, dealerCards, dealerScore,
+                            initialBank, playerBet)
             # COMPARE SCORES
             if compareScores(playerScore, dealerScore) == True:
                 print("YOU WIN")
@@ -392,12 +409,17 @@ while True:
     if actualizeMoney(initialBank) == 0:
         print("Your bank is empty, you LOST")
         break
-    print("After the game your bank is ${}".format(actualizeMoney(initialBank)))
+    print("After the game your bank is ${}".format(
+        actualizeMoney(initialBank)))
     gameDecision = input(
-        "Would you like to play again? 'Y' to play again, 'N' to close the game\n").upper()
+        "Would you like to play again? 'Y' to play again, 'N' to close the game\n"
+    ).upper()
     if gameDecision == 'Y':
         clear()
         continue
     elif gameDecision == 'N':
         clear()
         break
+
+
+
